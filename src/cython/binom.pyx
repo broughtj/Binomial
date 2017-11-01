@@ -1,4 +1,4 @@
-from math cimport pow
+from libc.math cimport pow
 
 cdef double choose(double n, double k):
     cdef int i
@@ -7,11 +7,11 @@ cdef double choose(double n, double k):
     cdef double value
 
     if k < n - k:
-        mn = k
-        mx = n - k
+        mn = <int>(k)
+        mx = <int>(n - k)
     else:
-        mn = n - k
-        mx = k
+        mn = <int>(n - k)
+        mx = <int>(k)
 
     if mn < 0:
         value = 0.0
@@ -26,4 +26,25 @@ cdef double choose(double n, double k):
     return value
 
 
-cpdef double dbinom(
+cpdef double dbinom(double x, double n, double p):
+    cdef double value
+
+    if x < 0.0:
+        value = 0.0
+    elif x <= n:
+        value = choose(n,x) * pow(p, x) * pow(1.0 - p, n - x)
+    else:
+        value = 0.0
+
+    return value
+
+cpdef void test(long m):
+    cdef double n = 10.0
+    cdef double p = 0.5
+    cdef double x 
+    cdef long i
+
+    for i in range(m):
+        for x in range(1,11):
+            dbinom(x,n,p)
+        
