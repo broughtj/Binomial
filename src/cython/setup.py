@@ -1,4 +1,6 @@
-from distutils.core import setup
+from distutils.core import setup, Extension
 from Cython.Build import cythonize
 
-setup(ext_modules=cythonize('binom.pyx'))
+ext_modules=[Extension("binom", sources=["binom.pyx"], language="c++",)]
+
+setup(ext_modules=cythonize(ext_modules))

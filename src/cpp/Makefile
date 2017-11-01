@@ -17,4 +17,5 @@ Binomial.o:	Binomial.cpp Binomial.hpp
 	        g++ -c Binomial.cpp
 
 clean:
-	        rm -f *.o main
+	        rm -f *.o main test
+			
